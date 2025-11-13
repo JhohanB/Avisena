@@ -11,7 +11,7 @@ from app.schemas.users import UserOut
 from app.crud import rescue as crud_rescue
 
 router = APIRouter()
-modulo = 4
+modulo = 5
 
 @router.post("/crear", status_code=status.HTTP_201_CREATED)
 def create_rescue(
