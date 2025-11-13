@@ -193,7 +193,7 @@ def update_chicken(
             raise HTTPException(status_code=404, detail="El galpón especificado no existe")
         
         if chicken.cantidad_gallinas is not None:
-            capacidad_restante = galpon['capacidad'] - (galpon['cant_actual'] - registro_actual['cant_gallinas'])
+            capacidad_restante = galpon['capacidad'] - (galpon['cant_actual'] - registro_actual['cantidad_gallinas'])
 
             if chicken.cantidad_gallinas > capacidad_restante:
                 raise HTTPException(status_code=400, detail="La cantidad de gallinas excede la capacidad  del galpón")
