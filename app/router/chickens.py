@@ -167,7 +167,7 @@ def get_chickens_by_date(
 
 
 @router.put("/by-id/{id_ingreso}")
-def update_user(
+def update_chicken(
     id_ingreso: int, 
     chicken: ChickenUpdate, 
     db: Session = Depends(get_db),
@@ -193,9 +193,9 @@ def update_user(
             raise HTTPException(status_code=404, detail="El galpón especificado no existe")
         
         if chicken.cantidad_gallinas is not None:
-            nueva_cantidad = galpon['cant_actual'] + chicken.cantidad_gallinas
+            capacidad_restante = galpon['capacidad'] - (galpon['cant_actual'] - registro_actual['cant_gallinas'])
 
-            if nueva_cantidad > galpon['capacidad']:
+            if chicken.cantidad_gallinas > capacidad_restante:
                 raise HTTPException(status_code=400, detail="La cantidad de gallinas excede la capacidad  del galpón")
         
         if chicken.id_tipo_gallina is not None:
@@ -212,7 +212,7 @@ def update_user(
 
 
 @router.delete("/eliminar/{id_ingreso}", status_code=status.HTTP_200_OK)
-def delete_sale(
+def delete_chicken(
     id_ingreso: int,
     db: Session = Depends(get_db),
     user_token: UserOut = Depends(get_current_user)
